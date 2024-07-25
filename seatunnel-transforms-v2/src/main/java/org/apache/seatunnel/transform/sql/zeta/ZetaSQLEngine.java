@@ -85,6 +85,7 @@ public class ZetaSQLEngine implements SQLEngine {
 
     private void parseSQL() {
         try {
+            // 解析sql, 使用jsqlparser库解析
             Statement statement = CCJSqlParserUtil.parse(sql);
             // validate SQL statement
             validateSQL(statement);
@@ -212,6 +213,11 @@ public class ZetaSQLEngine implements SQLEngine {
         return new SeaTunnelRowType(fieldNames, seaTunnelDataTypes);
     }
 
+    /**
+     * sql转化的主要逻辑
+     * @param inputRow
+     * @return
+     */
     @Override
     public SeaTunnelRow transformBySQL(SeaTunnelRow inputRow) {
         // ------Physical Query Plan Execution------

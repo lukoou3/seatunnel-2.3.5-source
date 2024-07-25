@@ -118,12 +118,14 @@ public class TransformExecuteProcessor
 
     protected DataStream<Row> flinkTransform(
             SeaTunnelRowType sourceType, SeaTunnelTransform transform, DataStream<Row> stream) {
+        // SeaTunnelDataType => Flink TypeInformation
         TypeInformation rowTypeInfo =
                 TypeConverterUtils.convert(
                         transform.getProducedCatalogTable().getSeaTunnelRowType());
         FlinkRowConverter transformInputRowConverter = new FlinkRowConverter(sourceType);
         FlinkRowConverter transformOutputRowConverter =
                 new FlinkRowConverter(transform.getProducedCatalogTable().getSeaTunnelRowType());
+        // flink使用Row类型, SeaTunnelRow <=> Row 类型会相互转化
         DataStream<Row> output =
                 stream.flatMap(
                         (FlatMapFunction<Row, Row>)
@@ -132,6 +134,7 @@ public class TransformExecuteProcessor
                                             transformInputRowConverter.reconvert(value);
                                     SeaTunnelRow dataRow =
                                             (SeaTunnelRow) transform.map(seaTunnelRow);
+                                    // 返回null就是过滤
                                     if (dataRow != null) {
                                         Row copy = transformOutputRowConverter.convert(dataRow);
                                         out.collect(copy);

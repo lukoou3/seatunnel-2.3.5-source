@@ -155,7 +155,9 @@ public class TypeConverterUtils {
         throw new IllegalArgumentException("Unsupported Flink's data type: " + dataType);
     }
 
+    // SeaTunnelDataType => Flink TypeInformation
     public static TypeInformation<?> convert(SeaTunnelDataType<?> dataType) {
+        // 基本类型映射关系存在map里
         BridgedType bridgedType = BRIDGED_TYPES.get(dataType.getTypeClass());
         if (bridgedType != null) {
             return bridgedType.getFlinkType();
