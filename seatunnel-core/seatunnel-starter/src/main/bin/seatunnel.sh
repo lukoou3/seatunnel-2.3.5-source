@@ -99,6 +99,7 @@ if [ -e "${CONF_DIR}/log4j2_client.properties" ]; then
   fi
 fi
 
+# 所有的jar
 CLASS_PATH=${APP_DIR}/lib/*:${APP_JAR}
 
 while read line

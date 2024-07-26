@@ -44,6 +44,7 @@ public class FlinkTaskExecuteCommand implements Command<FlinkCommandArgs> {
         this.flinkCommandArgs = flinkCommandArgs;
     }
 
+    // flink提交app的主类
     @Override
     public void execute() throws CommandExecuteException {
         Path configFile = FileUtils.getConfigPath(flinkCommandArgs);

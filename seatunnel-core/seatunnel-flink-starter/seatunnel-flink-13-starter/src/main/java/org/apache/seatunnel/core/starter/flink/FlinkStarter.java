@@ -44,6 +44,7 @@ public class FlinkStarter implements Starter {
         this.appJar = Common.appStarterDir().resolve(APP_JAR_NAME).toString();
     }
 
+    // flink start-seatunnel-flink-13-connector-v2.sh调用的主类, 返回flink提交的命令行参数
     public static void main(String[] args) {
         FlinkStarter flinkStarter = new FlinkStarter(args);
         System.out.println(String.join(" ", flinkStarter.buildCommands()));
@@ -58,7 +59,7 @@ public class FlinkStarter implements Starter {
         command.add(flinkCommandArgs.getDeployMode().getDeployMode());
         // set submitted target master
         if (flinkCommandArgs.getMasterType() != null) {
-            command.add("--target");
+            command.add("--target"); // 支持这么多种提交模式:local, remote, yarn-session, yarn-per-job, kubernetes-session, yarn-application, kubernetes-application
             command.add(flinkCommandArgs.getMasterType().getMaster());
         }
         // set flink original parameters
@@ -70,7 +71,7 @@ public class FlinkStarter implements Starter {
         command.add(appJar);
         // set config file path
         command.add("--config");
-        command.add(flinkCommandArgs.getConfigFile());
+        command.add(flinkCommandArgs.getConfigFile()); // cluster模式怎么获取配置文件?
         // set check config flag
         if (flinkCommandArgs.isCheckConfig()) {
             command.add("--check");

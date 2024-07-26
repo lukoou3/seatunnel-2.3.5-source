@@ -188,6 +188,7 @@ public abstract class AbstractPluginDiscovery<T> implements PluginDiscovery<T> {
             log.info("Load plugin: {} from classpath", pluginIdentifier);
             return Optional.of(pluginInstance);
         }
+        // 加载jars
         Optional<URL> pluginJarPath = getPluginJarPath(pluginIdentifier);
         // if the plugin jar not exist in classpath, will load from plugin dir.
         if (pluginJarPath.isPresent()) {
