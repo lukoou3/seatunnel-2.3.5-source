@@ -157,7 +157,7 @@ public class ZetaSQLType {
         }
 
         if (expression instanceof CaseExpression) {
-            return getCaseType((CaseExpression) expression);
+            return getCaseType((CaseExpression) expression); // 返回类型取最大的公共类型
         }
         if (expression instanceof ComparisonOperator
                 || expression instanceof IsNullExpression

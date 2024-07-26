@@ -277,6 +277,7 @@ public class ZetaSQLFunction {
             return computeForValue(parenthesis.getExpression(), inputFields);
         }
         if (expression instanceof CaseExpression) {
+            // 计算CaseExpression表达式, 先计算结果, 然后转化为最终类型
             CaseExpression caseExpression = (CaseExpression) expression;
             final Object value = executeCaseExpr(caseExpression, inputFields);
             SeaTunnelDataType<?> type = zetaSQLType.getExpressionType(expression);

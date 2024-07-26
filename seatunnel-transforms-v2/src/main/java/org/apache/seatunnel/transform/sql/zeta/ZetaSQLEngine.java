@@ -155,6 +155,7 @@ public class ZetaSQLEngine implements SQLEngine {
         }
     }
 
+    // 推断sql返回列类型
     @Override
     public SeaTunnelRowType typeMapping(List<String> inputColumnsMapping) {
         List<SelectItem> selectItems = selectBody.getSelectItems();
@@ -204,6 +205,7 @@ public class ZetaSQLEngine implements SQLEngine {
                     inputColumnsMapping.set(idx, ((Column) expression).getColumnName());
                 }
 
+                // 推断expression返回类型
                 seaTunnelDataTypes[idx] = zetaSQLType.getExpressionType(expression);
                 idx++;
             } else {
